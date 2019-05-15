@@ -1,6 +1,4 @@
 from win32api import keybd_event
-import tkinter as tk
-from tkinter import messagebox
 import time,threading,pyttsx3,win32file,os,sys,win32api,win32con,win32gui_struct
 try:
 	import winxpgui as win32gui
@@ -27,60 +25,21 @@ def spin():
 	dm.PelsWidth, dm.PelsHeight = dm.PelsHeight, dm.PelsWidth
 	dm.Fields = dm.Fields & win32con.DM_DISPLAYORIENTATION
 
-	d=0.5
-
 	dm.DisplayOrientation = win32con.DMDO_180
 	win32api.ChangeDisplaySettingsEx(device.DeviceName,dm)
+	
+def spinrestore():
+	device = win32api.EnumDisplayDevices(None,0);
 
-	time.sleep(d)
+	dm = win32api.EnumDisplaySettings(device.DeviceName,win32con.ENUM_CURRENT_SETTINGS)
+	dm.PelsWidth, dm.PelsHeight = dm.PelsHeight, dm.PelsWidth
+	dm.Fields = dm.Fields & win32con.DM_DISPLAYORIENTATION
 
 	dm.DisplayOrientation = win32con.DMDO_DEFAULT
 	win32api.ChangeDisplaySettingsEx(device.DeviceName,dm)
-
-	time.sleep(d)
-
-	dm.DisplayOrientation = win32con.DMDO_180
-	win32api.ChangeDisplaySettingsEx(device.DeviceName,dm)
-
-	time.sleep(d)
-
-	dm.DisplayOrientation = win32con.DMDO_DEFAULT
-	win32api.ChangeDisplaySettingsEx(device.DeviceName,dm)
-
-	time.sleep(d)
-
-	dm.DisplayOrientation = win32con.DMDO_180
-	win32api.ChangeDisplaySettingsEx(device.DeviceName,dm)
-
-	time.sleep(d)
-
-	dm.DisplayOrientation = win32con.DMDO_DEFAULT
-	win32api.ChangeDisplaySettingsEx(device.DeviceName,dm)
-
-	time.sleep(d)
 
 def askyesno(title,message):
-	root = tk.Tk()
-	root.overrideredirect(1)
-	root.withdraw()
-	return messagebox.askyesno(title, message)
-
-def square(image):
-	s=Tk()
-	s.geometry("+300+300")
-	s.overrideredirect(True)
-	s.call('wm', 'attributes', '.', '-topmost', '1')
-
-	i="./images/"+image+".png"
-	img=PhotoImage(file=i)
-
-	font=("Arial",50)
-	l=Label(s,image=img,font=font)
-	l.grid()
-	l.bind("<Button-1>",lambda e:s.destroy())
-
-	s.mainloop()
-	
+	return win32api.MessageBox(0, message, title, 3,0x00001000)
 	
 	
 class SysTrayIcon(object):

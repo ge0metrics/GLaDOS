@@ -1,4 +1,4 @@
-from modules.tasks import spin,square,getUsbList,askyesno,SysTrayIcon
+from modules.tasks import spin,spinrestore,square,getUsbList,askyesno,SysTrayIcon
 from playsound import playsound
 import threading,pyttsx3,win32file,random,time,os,webbrowser,pythoncom,pyHook,sys
 
@@ -11,21 +11,20 @@ class GLaDOS:
 			self.speakline(random.choice(lines))
 			sys.exit()
 		menu_options=(("Surprise","potatos.ico",surprise),)
+		#SysTrayIcon("potatos.ico",hover_text,menu_options,on_quit=bye,default_menu_index=1)
 		sysTrayThread=threading.Thread(target=SysTrayIcon,args=("potatos.ico",hover_text,menu_options),kwargs={"on_quit":bye,"default_menu_index":1})
 		sysTrayThread.daemon=True
 		sysTrayThread.start()
-		
-		self.speakline("fully connected")
 		
 		usbSpyThread=threading.Thread(target=self.usbSpy)
 		usbSpyThread.daemon=True
 		usbSpyThread.start()
 
-		self.logged=[]
-		hm=pyHook.HookManager()
-		hm.KeyDown=self.OnKeyboardEvent
-		hm.HookKeyboard()
-		pythoncom.PumpMessages()
+		keyboardSpyThread=threading.Thread(target=self.keyboardSpy)
+		keyboardSpyThread.daemon=True
+		keyboardSpyThread.start()
+		
+		self.speakline("fully connected")
 
 	def usbSpy(self):
 		current_list=getUsbList()
@@ -40,6 +39,13 @@ class GLaDOS:
 				lines=["you broke it","file deleted","good","really ok"]
 				self.speakline(random.choice(lines))
 			old_list=current_list
+			
+	def keyboardSpy(self):
+		self.logged=[]
+		hm=pyHook.HookManager()
+		hm.KeyDown=self.OnKeyboardEvent
+		hm.HookKeyboard()
+		pythoncom.PumpMessages()
 
 	def OnKeyboardEvent(self,event):
 		self.logged.append(event.Key)
@@ -105,12 +111,16 @@ class GLaDOS:
 
 	def whee(self):
 		self.speakline("i have a surprise for you")
-		t1=threading.Thread(target=self.speakline,args=("whee",))
-		t2=threading.Thread(target=spin)
-		t1.start()
-		t2.start()
-		t1.join()
-		t2.join()
+		spin()
+		self.speakline("whee")
+		r=askyesno("Aperture AntiVirus","Do you want AAV to fix your PC?")
+		if r==6:
+			spinrestore()
+			self.speakline("i already fixed it")
+		else:
+			self.speakline("trapped1")
+			self.speakline("trapped2")
+			spinrestore()
 
 	def blah(self):
 		self.speakline("blah1")
@@ -125,8 +135,8 @@ class GLaDOS:
 		return askyesno(title,message)
 
 	def fixpc(self):
-		result=self.yesno("Aperture AntiVirus","VIRUS DETECTED !! \n\n Would you like to fix your PC?")
-		if result:
+		result=self.yesno("Aperture AntiVirus","VIRUS DETECTED !! \n\n Would you like AAV to fix your PC?")
+		if result==6:
 			self.speakline("i already fixed it")
 			time.sleep(1)
 			self.speakline("hahaha")
@@ -138,3 +148,4 @@ class GLaDOS:
 		self.speakline("encouragement")
 		os.system("explorer")
 		self.speakline("file deleted")
+		self.speakline("comedy=tragedy+time")
