@@ -1,7 +1,7 @@
 # GLaDOS
 * A non-lethal computer pest
 * `Aperture Antivirus.pyw` is a small Python program that imports GLaDOS and periodically calls on her 'tasks'
-* Upon initialization, GLaDOS (`/modules/GLaDOS.py`) will monitor the USB ports and keys pressed in order to deliver appropriate voice lines at the execution of certain tasks. She will yell at you when you plug in a USB storage device, and express relief when you remove it. She will also make various comments depending on what you type.
+* Upon instantiation, GLaDOS (`/modules/GLaDOS.py`) will monitor the USB ports and keys pressed in order to deliver appropriate voice lines at the execution of certain tasks. She will yell at you when you plug in a USB storage device, and express relief when you remove it. She will also make various comments depending on what you type.
 * Use the system tray icon to kill GLaDOS
 
 # **NEITHER GLaDOS OR APERTURE ANTIVIRUS WILL HARM/FIX YOUR PC!**
