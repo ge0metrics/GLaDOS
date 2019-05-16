@@ -14,4 +14,5 @@
 - `pip install PyHook3`
 
 # Credits
+* Portal, GLaDOS, Aperture and all mentioned characters belong to Valve
 * All sounds from here: https://theportalwiki.com/wiki/GLaDOS_voice_lines
