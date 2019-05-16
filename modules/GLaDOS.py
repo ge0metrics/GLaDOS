@@ -6,10 +6,10 @@ import PyHook3 as pyHook
 class GLaDOS:
 	def __init__(self):
 		hover_text="GLaDOS"
-		def surprise(sysTrayIcon):self.whee()
+		def surprise(sysTrayIcon):
+			self.whee()
 		def bye(sysTrayIcon):
-			lines=["dont press that button","goodbye","dont come back"]
-			self.speakline(random.choice(lines))
+			self.speakline("dont press that button","goodbye","dont come back")
 			sys.exit()
 		menu_options=(("Surprise","potatos.ico",surprise),)
 		#SysTrayIcon("potatos.ico",hover_text,menu_options,on_quit=bye,default_menu_index=1)
@@ -33,12 +33,10 @@ class GLaDOS:
 		while True:
 			current_list=getUsbList()
 			if len(current_list)>len(old_list):
-				lines=["dont plug it in","dont plug it in2",
-					   "dont plug it in3","dont plug it in4"]
-				self.speakline(random.choice(lines))
+				self.speakline("dont plug it in","dont plug it in2",
+								"dont plug it in3","dont plug it in4")
 			elif len(current_list)<len(old_list):
-				lines=["you broke it","file deleted","good","really ok"]
-				self.speakline(random.choice(lines))
+				self.speakline("you broke it","file deleted","good","really ok")
 			old_list=current_list
 			
 	def keyboardSpy(self):
@@ -63,67 +61,74 @@ class GLaDOS:
 			fullstring=fullstring.replace("Rshift","")
 			fullstring=fullstring.replace("Capital","")
 			if "APERTURE" in fullstring.upper():
-				lines=["oh my facility","good people dont end up here"]
+				self.speakline("oh my facility","good people dont end up here")
 			elif "CAVE" in fullstring.upper() and "JOHNSON" in fullstring.upper():
-				lines=["oh i like this guy","goodbye sir","burning people","yes sir"]
+				self.speakline("oh i like this guy","goodbye sir","burning people","yes sir")
 			elif "GLADOS" in fullstring.upper():
-				lines=["hello","hello2",
+				self.speakline("hello","hello2",
 				   "are you doing that just to aggravate me",
 				   "did you do that on purpose","excellent",
 				   "good job","good","i hate you so much",
 				   "i hope that was a joke","just stop it already",
 				   "no","oh hi","oh its you","really ok","time out",
 				   "wasting my time","wow","yeah","yes","yes2",
-				   "you dont need to do that"]
+				   "you dont need to do that")
 			elif "TWITTER" in fullstring.upper():
-				lines=["bird1","bird2"]
+				self.speakline("bird1","bird2")
 			elif "TURRET" in fullstring.upper():
-				lines=["turrets","spherical"]
+				self.speakline("turrets","spherical")
 			elif "CAKE" in fullstring.upper():
-				lines=["all the cake is gone","before any cake","cake will be served",
+				self.speakline("all the cake is gone","before any cake","cake will be served",
 					"cake and grief counselling","you will be baked","for your cake",
-					"cut the cake","whos gonna make the cake","there really was a cake"]
+					"cut the cake","whos gonna make the cake","there really was a cake")
 			elif "WHEATLEY" in fullstring.upper():
-				lines=["hey moron","uh oh","trouble","oh no","the part where he kills us",
-						"kill wheatley","not coming back"]
+				self.speakline("hey moron","uh oh","trouble","oh no","the part where he kills us",
+						"kill wheatley","not coming back")
 			elif "PORTAL" in fullstring.upper():
-				lines=["open portal","safe","most importantly","safe testing","warning"]
+				self.speakline("open portal","safe","most importantly","safe testing","warning")
 			elif "CAROLINE" in fullstring.upper():
-				lines=["caroline","being caroline"]
+				self.speakline("caroline","being caroline")
 			elif "CHELL" in fullstring.upper():
-				lines=["dangerous mute lunatic","dangerous mute lunatic","killing you is hard",
-						"you win"]
+				self.speakline("dangerous mute lunatic","dangerous mute lunatic","killing you is hard",
+						"you win")
 			elif len(self.logged)>100:
 				self.logged=[]
-				
-			if lines:
-				self.logged=[]
-				self.speakline(random.choice(lines))
 
-	def speakline(self,line):
+	def speakline(self,*args):
+		if len(args)==0:
+			line="can you hear me"
+		else:
+			line=random.choice(args)
 		playsound("./speech/"+line+".wav")
+		self.logged=[]
 
 	def speak(self,words):
 		s=pyttsx3.init()
 		s.say(words)
 		s.runAndWait()
 		
-	def hello(self):
-		lines=["can you hear me","is anyone there","youre not a good person"]
-		self.speakline(random.choice(lines))
-		
-	def deaths(self):
-		self.speakline("die1")
-		self.speakline("die2")
-		
-	def present(self):
-		self.speakline("present")
+	def nag(self):
+		n=random.randint(0,3) # increase upper bound when adding nags with multiple consecutive lines
+		if n==0:
+			# add all one-liner nags to this call
+			self.speakline("can you hear me","is anyone there",
+							"youre not a good person","present")
+		elif n==1: # just thinking about all the ways in which humans can die
+			self.speakline("die1")
+			self.speakline("die2")
+		elif n==2: # blah blah blah blah blah (glados is a great singer)
+			self.speakline("blah1")
+			self.speakline("blah2")
+			self.speakline("blah3")
+			self.speakline("blah4")
+			self.speakline("blah5")
+			self.speakline("blah6")
+			self.speakline("blah7")
 
 	def whee(self):
 		self.speakline("i have a surprise for you")
 		spin()
-		lines=["whee","fling","turkey leg"]
-		self.speakline(random.choice(lines))
+		self.speakline("whee","fling","turkey leg")
 		r=askyesno("Aperture AntiVirus","Do you want AAV to fix your PC?")
 		if r==6:
 			spinrestore()
@@ -132,15 +137,6 @@ class GLaDOS:
 			self.speakline("trapped1")
 			self.speakline("trapped2")
 			spinrestore()
-
-	def blah(self):
-		self.speakline("blah1")
-		self.speakline("blah2")
-		self.speakline("blah3")
-		self.speakline("blah4")
-		self.speakline("blah5")
-		self.speakline("blah6")
-		self.speakline("blah7")
 
 	def yesno(self,title,message):
 		return askyesno(title,message)

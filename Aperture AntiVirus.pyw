@@ -3,10 +3,8 @@ import random,time
 
 glados=GLaDOS()
 
-activities=[glados.whee,glados.blah,
-            glados.fixpc,glados.motivate,
-            glados.hello,glados.deaths,
-			glados.present]
+activities=[glados.whee,glados.fixpc,glados.motivate,
+            glados.nag]
 
 while True:
     t=random.randint(0,500)
