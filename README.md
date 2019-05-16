@@ -10,7 +10,7 @@
 # Dependencies
 - `pip install pypiwin32`
 - `pip install playsound`
-- `pip instal pyttsx3`
+- `pip install pyttsx3`
 - `pip install PyHook3`
 
 # Credits
