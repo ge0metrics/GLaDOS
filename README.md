@@ -7,6 +7,11 @@
 # **NEITHER GLaDOS OR APERTURE ANTIVIRUS WILL HARM/FIX YOUR PC!**
 * This is just for fun! GLaDOS' keylogging is not stored or sent anywhere, and is erased every hundred logged keys of finding nothing interesting to respond to. Likewise, GLaDOS does not really delete files, even if she says she did and she cannot mess with any of your USB storage devices beyond acknowledging that they exist. 
 
+# Dependencies
+- `pip install pypiwin32`
+- `pip install playsound`
+- `pip instal pyttsx3`
+- `pip install PyHook3`
 
 # Credits
 * All sounds from here: https://theportalwiki.com/wiki/GLaDOS_voice_lines
