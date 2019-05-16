@@ -1,6 +1,7 @@
 from modules.tasks import spin,spinrestore,getUsbList,askyesno,SysTrayIcon
 from playsound import playsound
-import threading,pyttsx3,win32file,random,time,os,webbrowser,pythoncom,pyHook,sys
+import threading,pyttsx3,win32file,random,time,os,webbrowser,pythoncom,sys
+import PyHook3 as pyHook
 
 class GLaDOS:
 	def __init__(self):
