@@ -11,7 +11,7 @@
 - `pip install pypiwin32`
 - `pip install playsound`
 - `pip instal pyttsx3`
-- https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook **note**: it is easier to install pyHook from here BUT GLaDOS will crash silently if you enter a window with some non-ascii character in the title. this is a bug with this version of pyHook. a better version with this bug fixed can be found here: https://github.com/Answeror/pyhook_py3k and installed using the following instructions: https://stackoverflow.com/questions/36109533/install-pyhook-3-5. you may also need to follow these instructions for installing swig: https://stackoverflow.com/questions/44504899/installing-pocketsphinx-python-module-command-swig-exe-failed
+- `pip install PyHook3`
 
 # Credits
 * All sounds from here: https://theportalwiki.com/wiki/GLaDOS_voice_lines
