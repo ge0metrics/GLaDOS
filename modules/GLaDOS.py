@@ -7,9 +7,9 @@ class GLaDOS:
 	def __init__(self):
 		hover_text="GLaDOS"
 		def surprise(sysTrayIcon):
-			self.whee()
+			self.nag()
 		def bye(sysTrayIcon):
-			self.speakline("dont press that button","goodbye","dont come back")
+			self.speakline("dont press that button","goodbye","dont come back","murder")
 			sys.exit()
 		menu_options=(("Surprise","potatos.ico",surprise),)
 		#SysTrayIcon("potatos.ico",hover_text,menu_options,on_quit=bye,default_menu_index=1)
@@ -26,6 +26,19 @@ class GLaDOS:
 		keyboardSpyThread.start()
 		
 		self.speakline("fully connected")
+		
+	def speakline(self,*args):
+		if len(args)==0:
+			line="can you hear me"
+		else:
+			line=random.choice(args)
+		playsound("./speech/"+line+".wav")
+		self.logged=[]
+
+	def speak(self,words):
+		s=pyttsx3.init()
+		s.say(words)
+		s.runAndWait()
 
 	def usbSpy(self):
 		current_list=getUsbList()
@@ -36,7 +49,7 @@ class GLaDOS:
 				self.speakline("dont plug it in","dont plug it in2",
 								"dont plug it in3","dont plug it in4")
 			elif len(current_list)<len(old_list):
-				self.speakline("you broke it","file deleted","good","really ok")
+				self.speakline("you broke it","file deleted","good","really ok","hero")
 			old_list=current_list
 			
 	def keyboardSpy(self):
@@ -76,7 +89,7 @@ class GLaDOS:
 			elif "TWITTER" in fullstring.upper():
 				self.speakline("bird1","bird2")
 			elif "TURRET" in fullstring.upper():
-				self.speakline("turrets","spherical")
+				self.speakline("turrets","spherical","marry")
 			elif "CAKE" in fullstring.upper():
 				self.speakline("all the cake is gone","before any cake","cake will be served",
 					"cake and grief counselling","you will be baked","for your cake",
@@ -93,26 +106,14 @@ class GLaDOS:
 						"you win")
 			elif len(self.logged)>100:
 				self.logged=[]
-
-	def speakline(self,*args):
-		if len(args)==0:
-			line="can you hear me"
-		else:
-			line=random.choice(args)
-		playsound("./speech/"+line+".wav")
-		self.logged=[]
-
-	def speak(self,words):
-		s=pyttsx3.init()
-		s.say(words)
-		s.runAndWait()
 		
 	def nag(self):
-		n=random.randint(0,3) # increase upper bound when adding nags with multiple consecutive lines
+		n=random.randint(0,5) # increase upper bound when adding nags with multiple consecutive lines
 		if n==0:
 			# add all one-liner nags to this call
 			self.speakline("can you hear me","is anyone there",
-							"youre not a good person","present")
+							"youre not a good person","present",
+							"subject name here","why do i hate you")
 		elif n==1: # just thinking about all the ways in which humans can die
 			self.speakline("die1")
 			self.speakline("die2")
@@ -124,6 +125,16 @@ class GLaDOS:
 			self.speakline("blah5")
 			self.speakline("blah6")
 			self.speakline("blah7")
+		elif n==3: # the difference between us is that i can feel pain
+			self.speakline("pain1")
+			self.speakline("pain2")
+		elif n==4: # gibberish
+			self.speakline("gib1")
+			self.speakline("gib2")
+			self.speakline("gib3")
+			self.speakline("gib4")
+			self.speakline("gib5")
+			self.speakline("gib6")
 
 	def whee(self):
 		self.speakline("i have a surprise for you")
